@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cadastro interativo de vinhos da Vinheria Agnello para o Checkpoint 02 de JavaScript.">
+    <title>Vinheria Agnello | Checkpoint 02</title>
+    <link rel="stylesheet" href="src/css/style.css">
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <a class="wordmark" href="index.html" aria-label="Vinheria Agnello, início">
+          <span class="wordmark-mark" aria-hidden="true">VA</span>
+          <span>VINHERIA<br>AGNELLO</span>
+        </a>
+        <span class="edition">CHECKPOINT 02 <i></i> JAVASCRIPT</span>
+      </header>
+
+      <section class="intro" aria-labelledby="page-title">
+        <div class="intro-copy">
+          <p class="eyebrow">CADERNO DE ADEGA <span>·</span> 2026</p>
+          <h1 id="page-title">Cada safra<br>tem sua <em>história.</em></h1>
+          <p class="description">Um cadastro interativo para acompanhar rótulos, safras e estoque da Vinheria Agnello. Os dados são informados em sequência por caixas de diálogo.</p>
+          <button class="start-button" id="start-button" type="button">
+            <span>Iniciar cadastro</span>
+            <span class="button-arrow" aria-hidden="true">↗</span>
+          </button>
+          <p class="session-note">Até 20 rótulos por sessão <span>·</span> Entradas via prompt</p>
+        </div>
+
+        <aside class="vintage-panel" aria-label="Informação sobre safras">
+          <span class="panel-index">ADEGA <b>01 / 03</b></span>
+          <div class="bottle-art" aria-hidden="true">
+            <div class="bottle-neck"></div>
+            <div class="bottle-cap"></div>
+            <div class="bottle-body"><span>AGNELLO</span><i>COLHEITA<br>ESPECIAL</i><b>VA</b></div>
+            <div class="bottle-base"></div>
+          </div>
+          <div class="panel-caption">
+            <span>REGISTRO DE SAFRAS</span>
+            <span>Desde 1987 <b>—</b> Serra Gaúcha</span>
+          </div>
+          <div class="panel-rule"></div>
+          <p>JOVEM <span>·</span> AMADURECIDO <span>·</span> ANTIGO</p>
+        </aside>
+      </section>
+
+      <section class="status-strip" aria-live="polite" aria-label="Status do cadastro">
+        <span class="status-dot" aria-hidden="true"></span>
+        <p id="status-message">Aguardando início da sessão.</p>
+        <span class="status-meta">VINHERIA AGNELLO <b>•</b> BRASIL</span>
+      </section>
+
+      <section class="records-section" aria-labelledby="records-title">
+        <div class="records-heading">
+          <div>
+            <p class="eyebrow">SESSAO ATUAL</p>
+            <h2 id="records-title">Vinhos cadastrados</h2>
+          </div>
+          <span class="records-count" id="records-count">0 registros</span>
+        </div>
+        <textarea id="wine-records" aria-label="Dados dos vinhos cadastrados" readonly placeholder="Os dados cadastrados aparecerao aqui."></textarea>
+      </section>
+
+      <footer><span>CHECKPOINT 02</span><span>FUNÇÕES <b>/</b> ESCOPO <b>/</b> ITERAÇÃO</span></footer>
+    </main>
+    <script src="src/js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap');
+
+:root {
+  color-scheme: light;
+  --ink: #24231f;
+  --muted: #77756e;
+  --paper: #f5f2eb;
+  --wine: #762f39;
+  --wine-dark: #4c1f28;
+  --gold: #b2945d;
+  --line: #d9d4c9;
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --display: 'Playfair Display', Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(99, 76, 51, .11) .55px, transparent .55px);
+  background-size: 7px 7px;
+  font-family: var(--sans);
+}
+
+.page-shell { width: min(1180px, calc(100% - 88px)); margin: 0 auto; }
+.topbar { height: 94px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.wordmark { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; font-size: 11px; font-weight: 700; line-height: 1.15; letter-spacing: 0; }
+.wordmark-mark { width: 39px; height: 39px; display: grid; place-items: center; border: 1px solid var(--wine); border-radius: 50%; color: var(--wine); font-family: var(--display); font-size: 17px; font-weight: 600; }
+.edition, .eyebrow, .panel-index, .panel-caption, .vintage-panel > p, .session-note, footer, .status-meta { font-family: var(--mono); font-size: 10px; letter-spacing: 0; }
+.edition { color: var(--muted); }
+.edition i { display: inline-block; width: 4px; height: 4px; margin: 0 9px 2px; border-radius: 50%; background: var(--gold); }
+
+.intro { min-height: 600px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 7%; padding: 48px 0 55px; }
+.intro-copy { padding: 10px 0 0 4.5%; animation: arrive .7s ease-out both; }
+.eyebrow { margin: 0 0 24px; color: var(--wine); }
+.eyebrow span { padding: 0 6px; color: var(--gold); }
+h1 { margin: 0; font-family: var(--display); font-size: clamp(54px, 6vw, 78px); font-weight: 500; line-height: 1.04; letter-spacing: 0; }
+h1 em { color: var(--wine); font-weight: 500; }
+.description { max-width: 405px; margin: 24px 0 29px; color: #646159; font-size: 15px; line-height: 1.8; }
+.start-button { min-height: 54px; display: inline-flex; align-items: center; gap: 31px; padding: 0 17px 0 21px; border: 0; color: #fffaf1; background: var(--wine); font-family: var(--sans); font-size: 13px; font-weight: 600; cursor: pointer; transition: background .2s ease, transform .2s ease; }
+.start-button:hover { background: var(--wine-dark); transform: translateY(-2px); }
+.start-button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.button-arrow { font-size: 19px; font-weight: 400; }
+.session-note { margin: 16px 0 0; color: #88847b; }
+.session-note span { padding: 0 5px; color: var(--gold); }
+
+.vintage-panel { position: relative; min-height: 464px; overflow: hidden; padding: 23px 26px 20px; color: #f4eddf; background: var(--wine-dark); animation: arrive .7s .12s ease-out both; }
+.vintage-panel::before { position: absolute; inset: 0; content: ''; opacity: .2; background: repeating-linear-gradient(133deg, transparent 0 17px, rgba(229, 204, 157, .14) 18px, transparent 19px 37px); pointer-events: none; }
+.panel-index { position: relative; display: flex; justify-content: space-between; color: #d5c6a9; }
+.panel-index b { color: var(--gold); font-weight: 400; }
+.bottle-art { position: relative; width: 177px; height: 310px; margin: 27px auto 10px; filter: drop-shadow(12px 12px 10px rgba(0, 0, 0, .28)); }
+.bottle-neck { position: absolute; z-index: 1; top: 0; left: 67px; width: 43px; height: 83px; border: 1px solid rgba(208, 183, 132, .52); border-bottom: 0; border-radius: 8px 8px 0 0; background: linear-gradient(90deg, #25392e, #46644b 48%, #25392e); }
+.bottle-cap { position: absolute; z-index: 2; top: 0; left: 66px; width: 45px; height: 25px; border: 1px solid #d5bd8c; background: repeating-linear-gradient(90deg, #a9824d 0 3px, #c19b61 4px 5px); }
+.bottle-body { position: absolute; top: 64px; left: 19px; width: 138px; height: 236px; display: flex; flex-direction: column; align-items: center; padding-top: 37px; border: 1px solid rgba(208, 183, 132, .46); border-radius: 33px 33px 19px 19px; background: linear-gradient(90deg, #1d3128, #3e5942 48%, #1b2c25); box-shadow: inset 6px 0 13px rgba(255,255,255,.07), inset -10px 0 15px rgba(0,0,0,.24); }
+.bottle-body span { color: #302621; font-family: var(--mono); font-size: 8px; letter-spacing: 0; }
+.bottle-body i { width: 92px; margin-top: 8px; padding: 12px 4px 10px; border-top: 1px solid #aa8550; border-bottom: 1px solid #aa8550; color: #47372a; background: #d3bd8f; font-family: var(--mono); font-size: 8px; font-style: normal; line-height: 1.7; text-align: center; }
+.bottle-body b { margin-top: 8px; color: #d1bb8c; font-family: var(--display); font-size: 22px; font-weight: 500; }
+.bottle-base { position: absolute; bottom: 1px; left: 57px; width: 63px; height: 9px; border-radius: 50%; background: #18251f; }
+.panel-caption { position: relative; display: flex; justify-content: space-between; color: #dfd1b4; font-size: 9px; }
+.panel-caption span:last-child { color: #b8aa91; }
+.panel-caption b { padding-left: 5px; color: var(--gold); }
+.panel-rule { position: relative; height: 1px; margin-top: 18px; background: rgba(212, 192, 154, .3); }
+.vintage-panel > p { position: relative; margin: 12px 0 0; color: #d1c2a5; font-size: 8px; text-align: center; }
+.vintage-panel > p span { padding: 0 5px; color: var(--gold); }
+
+.status-strip { min-height: 61px; display: flex; align-items: center; gap: 11px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+.status-strip p { margin: 0; color: #66635c; font-size: 12px; }
+.status-meta { margin-left: auto; color: #8a867c; font-size: 9px; }
+.status-meta b { padding: 0 6px; color: var(--wine); }
+.records-section { padding: 34px 0 25px; }
+.records-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.records-heading .eyebrow { margin: 0 0 7px; }
+.records-heading h2 { margin: 0; font-family: var(--display); font-size: 28px; font-weight: 500; }
+.records-count { padding-bottom: 4px; color: var(--muted); font-family: var(--mono); font-size: 10px; }
+#wine-records { display: block; width: 100%; min-height: 120px; resize: vertical; padding: 16px; border: 1px solid var(--line); border-left: 3px solid var(--wine); border-radius: 0; color: var(--ink); background: rgba(255, 255, 255, .45); font-family: var(--mono); font-size: 12px; line-height: 1.8; }
+#wine-records::placeholder { color: #928e84; }
+#wine-records:focus { outline: 2px solid var(--gold); outline-offset: 2px; }
+footer { display: flex; justify-content: space-between; padding: 22px 0 30px; color: #8b877d; font-size: 9px; }
+footer b { padding: 0 4px; color: var(--gold); font-weight: 400; }
+
+@keyframes arrive { from { opacity: 0; transform: translateY(11px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 760px) {
+  .page-shell { width: min(100% - 40px, 520px); }
+  .topbar { height: 76px; }
+  .edition { font-size: 8px; }
+  .intro { min-height: 0; grid-template-columns: 1fr; gap: 38px; padding: 54px 0 35px; }
+  .intro-copy { padding-left: 0; }
+  h1 { font-size: clamp(53px, 14vw, 72px); }
+  .description { max-width: 390px; }
+  .vintage-panel { min-height: 435px; }
+  .bottle-art { transform: scale(.9); transform-origin: center top; margin-bottom: -20px; }
+  .status-meta { display: none; }
+  .records-heading h2 { font-size: 24px; }
+  footer { gap: 12px; font-size: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
