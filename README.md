@@ -19,22 +19,14 @@ O ano de referencia esta definido como `2026` no inicio de `src/js/script.js`. A
 
 ### Integrantes
 
-Substitua os campos abaixo pelos nomes completos de todos os integrantes do grupo (ate 5 pessoas):
-
-- [Nome completo do integrante 1]
-- [Nome completo do integrante 2]
-- [Nome completo do integrante 3, se houver]
-- [Nome completo do integrante 4, se houver]
-- [Nome completo do integrante 5, se houver]
+- Cauã Almeida Moura
+- Felipe Fontes
+- Thiago Santos
 
 ### Links de entrega
 
-Atualize os links depois de criar o repositorio e publicar o GitHub Pages:
-
 - Repositorio: https://github.com/CauaMouraDev/vinheria-agnello-checkpoint02
 - GitHub Pages: https://cauamouradev.github.io/vinheria-agnello-checkpoint02/
-
-Para publicar, abra **Settings > Pages** no repositorio do GitHub, escolha **Deploy from a branch**, selecione a branch principal e a pasta **/(root)** e salve. Depois, substitua o endereco provisório acima pelo link publicado e envie os dois links pelo Microsoft Teams.
 
 ### Como executar
 
