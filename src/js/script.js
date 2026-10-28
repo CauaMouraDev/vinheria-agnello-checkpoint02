@@ -1,6 +1,5 @@
 const ANO_ATUAL = 2026;
 const LIMITE_CADASTROS = 20;
-let totalRegistrosVisiveis = 0;
 
 // Cada registro fica em variaveis numeradas para evitar arrays e objetos.
 let nome1 = '', safra1 = 0, estoque1 = 0, classificacao1 = '';
@@ -30,8 +29,10 @@ function validarEntrada(valor, tipo, minimo, maximo) {
   }
 
   if (tipo === 'numero') {
-    const numero = Number(valor);
-    return Number.isInteger(numero) && numero >= minimo && numero <= maximo;
+    // Aceita apenas digitos: evita que uma entrada vazia vire 0 ou que '1e3' vire 1000.
+    const texto = valor.trim();
+    const numero = Number(texto);
+    return /^\d+$/.test(texto) && numero >= minimo && numero <= maximo;
   }
 
   if (tipo === 'continuar') {
@@ -112,17 +113,26 @@ function guardarVinho(numero, nome, safra, estoque, classificacao) {
   }
 }
 
-function mostrarDados(nome, safra, estoque, classificacao) {
-  console.log(`Vinho: ${nome} | Safra: ${safra} | Estoque: ${estoque} | Classificacao: ${classificacao}`);
+function mostrarDados(numero, nome, safra, estoque, classificacao) {
+  const linha = `${numero}. ${nome} | Safra: ${safra} | Estoque: ${estoque} | Classificacao: ${classificacao}`;
+  console.log(linha);
+
   const campoRegistros = document.getElementById('wine-records');
   const contadorRegistros = document.getElementById('records-count');
-  totalRegistrosVisiveis += 1;
-  campoRegistros.value += `${totalRegistrosVisiveis}. ${nome} | Safra: ${safra} | Estoque: ${estoque} | Classificacao: ${classificacao}\n`;
-  contadorRegistros.textContent = `${totalRegistrosVisiveis} ${totalRegistrosVisiveis === 1 ? 'registro' : 'registros'}`;
+  campoRegistros.value += `${linha}\n`;
+  contadorRegistros.textContent = `${numero} ${numero === 1 ? 'registro' : 'registros'}`;
 
+  let aviso = `Vinho cadastrado com sucesso!\n\n${linha}`;
   if (estoqueBaixo(estoque)) {
-    alert(`Atencao: o estoque de ${nome} esta baixo (${estoque} unidade(s)).`);
+    aviso += `\n\nAtencao: o estoque de ${nome} esta baixo (${estoque} unidade(s)).`;
   }
+  alert(aviso);
+}
+
+// Limpa a area de registros para que cada sessao recomece do vinho 1.
+function limparRegistros() {
+  document.getElementById('wine-records').value = '';
+  document.getElementById('records-count').textContent = '0 registros';
 }
 
 function atualizarStatus(mensagem) {
@@ -137,6 +147,7 @@ function iniciarCadastro() {
   let continuar = true;
   let cancelado = false;
 
+  limparRegistros();
   atualizarStatus('Sessao em andamento. Aguardando os dados do primeiro vinho.');
 
   while (continuar && totalCadastros < LIMITE_CADASTROS) {
@@ -163,7 +174,7 @@ function iniciarCadastro() {
       nomeSafraMaisAntiga = nome;
     }
 
-    mostrarDados(nome, safra, estoque, classificacao);
+    mostrarDados(totalCadastros, nome, safra, estoque, classificacao);
     atualizarStatus(`${totalCadastros} de ${LIMITE_CADASTROS} vinho(s) cadastrado(s) nesta sessao.`);
 
     if (totalCadastros === LIMITE_CADASTROS) {
@@ -196,4 +207,14 @@ function exibirResumo(totalCadastros, totalEstoqueBaixo, nomeSafraMaisAntiga, sa
   atualizarStatus(totalCadastros > 0 ? `Sessao encerrada: ${totalCadastros} vinho(s) cadastrado(s).` : 'Sessao encerrada sem cadastros.');
 }
 
+// Alterna a pagina entre colorida e preto e branco.
+function alternarPretoEBranco() {
+  const botao = document.getElementById('theme-button');
+  const ativo = document.documentElement.classList.toggle('modo-pb');
+
+  botao.textContent = ativo ? 'Colorido' : 'Preto e branco';
+  botao.setAttribute('aria-pressed', ativo ? 'true' : 'false');
+}
+
 document.getElementById('start-button').addEventListener('click', iniciarCadastro);
+document.getElementById('theme-button').addEventListener('click', alternarPretoEBranco);

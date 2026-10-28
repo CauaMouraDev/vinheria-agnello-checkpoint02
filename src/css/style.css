@@ -33,6 +33,13 @@ body {
 .edition, .eyebrow, .panel-index, .panel-caption, .vintage-panel > p, .session-note, footer, .status-meta { font-family: var(--mono); font-size: 10px; letter-spacing: 0; }
 .edition { color: var(--muted); }
 .edition i { display: inline-block; width: 4px; height: 4px; margin: 0 9px 2px; border-radius: 50%; background: var(--gold); }
+.topbar-actions { display: flex; align-items: center; gap: 18px; }
+.theme-button { min-height: 32px; padding: 0 12px; border: 1px solid var(--ink); border-radius: 0; color: var(--ink); background: transparent; font-family: var(--mono); font-size: 10px; cursor: pointer; transition: background .2s ease, color .2s ease; }
+.theme-button:hover, .theme-button[aria-pressed="true"] { color: var(--paper); background: var(--ink); }
+.theme-button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+/* Modo preto e branco: remove as cores de toda a pagina. */
+html.modo-pb { filter: grayscale(1); }
 
 .intro { min-height: 600px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 7%; padding: 48px 0 55px; }
 .intro-copy { padding: 10px 0 0 4.5%; animation: arrive .7s ease-out both; }
@@ -88,7 +95,7 @@ footer b { padding: 0 4px; color: var(--gold); font-weight: 400; }
 @media (max-width: 760px) {
   .page-shell { width: min(100% - 40px, 520px); }
   .topbar { height: 76px; }
-  .edition { font-size: 8px; }
+  .edition { display: none; }
   .intro { min-height: 0; grid-template-columns: 1fr; gap: 38px; padding: 54px 0 35px; }
   .intro-copy { padding-left: 0; }
   h1 { font-size: clamp(53px, 14vw, 72px); }
