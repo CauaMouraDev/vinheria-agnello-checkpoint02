@@ -218,3 +218,15 @@ function alternarPretoEBranco() {
 
 document.getElementById('start-button').addEventListener('click', iniciarCadastro);
 document.getElementById('theme-button').addEventListener('click', alternarPretoEBranco);
+
+// Troca a foto da garrafa no painel da adega a cada 4 segundos.
+let fotoAtual = 1;
+
+function trocarFoto() {
+  document.getElementById('foto' + fotoAtual).classList.remove('ativa');
+  fotoAtual = fotoAtual === 3 ? 1 : fotoAtual + 1;
+  document.getElementById('foto' + fotoAtual).classList.add('ativa');
+  document.getElementById('foto-contador').textContent = '0' + fotoAtual + ' / 03';
+}
+
+setInterval(trocarFoto, 4000);
