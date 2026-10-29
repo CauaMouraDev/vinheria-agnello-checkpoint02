@@ -133,10 +133,25 @@ function mostrarDados(numero, nome, safra, estoque, classificacao) {
 function limparRegistros() {
   document.getElementById('wine-records').value = '';
   document.getElementById('records-count').textContent = '0 registros';
+  preencherResumo(0, '–', 0, 0, 0, 0);
 }
 
 function atualizarStatus(mensagem) {
   document.getElementById('status-message').textContent = mensagem;
+}
+// Escreve os numeros do resumo na secao "Resumo da adega".
+function preencherResumo(totalEstoque, maisAntigo, jovens, amadurecidos, antigos, estoqueBaixoTotal) {
+  document.getElementById('total-estoque').textContent = totalEstoque;
+  document.getElementById('mais-antigo').textContent = maisAntigo;
+  document.getElementById('por-categoria').textContent = `${jovens} / ${amadurecidos} / ${antigos}`;
+  document.getElementById('estoque-baixo').textContent = estoqueBaixoTotal;
+}
+
+// Botao "Limpar lista": apaga os registros e zera o resumo.
+function limparLista() {
+  limparRegistros();
+  document.getElementById('clear-button').disabled = true;
+  atualizarStatus('Lista limpa. Aguardando inicio de uma nova sessao.');
 }
 
 function iniciarCadastro() {
@@ -146,6 +161,11 @@ function iniciarCadastro() {
   let nomeSafraMaisAntiga = '';
   let continuar = true;
   let cancelado = false;
+  let totalEstoque = 0;
+  let totalJovens = 0;
+  let totalAmadurecidos = 0;
+  let totalAntigos = 0;
+
 
   limparRegistros();
   atualizarStatus('Sessao em andamento. Aguardando os dados do primeiro vinho.');
@@ -163,6 +183,15 @@ function iniciarCadastro() {
     const classificacao = classificarVinho(safra);
     guardarVinho(totalCadastros + 1, nome, safra, estoque, classificacao);
     totalCadastros += 1;
+    totalEstoque += estoque;
+
+    if (classificacao === 'jovem') {
+      totalJovens += 1;
+    } else if (classificacao === 'amadurecido') {
+      totalAmadurecidos += 1;
+    } else {
+      totalAntigos += 1;
+    }
 
     if (estoqueBaixo(estoque)) {
       totalEstoqueBaixo += 1;
@@ -190,18 +219,26 @@ function iniciarCadastro() {
     alert('Cadastro interrompido. O resumo considera os vinhos ja registrados.');
   }
 
-  exibirResumo(totalCadastros, totalEstoqueBaixo, nomeSafraMaisAntiga, safraMaisAntiga);
+  exibirResumo(totalCadastros, totalEstoqueBaixo, nomeSafraMaisAntiga, safraMaisAntiga,
+    totalEstoque, totalJovens, totalAmadurecidos, totalAntigos);;
 }
 
-function exibirResumo(totalCadastros, totalEstoqueBaixo, nomeSafraMaisAntiga, safraMaisAntiga) {
-  let resumo = `Cadastros realizados: ${totalCadastros}\nVinhos com estoque baixo: ${totalEstoqueBaixo}`;
+function exibirResumo(totalCadastros, totalEstoqueBaixo, nomeSafraMaisAntiga, safraMaisAntiga,
+  totalEstoque, totalJovens, totalAmadurecidos, totalAntigos) {
+  let resumo = `Cadastros realizados: ${totalCadastros}\nTotal em estoque: ${totalEstoque} unidade(s)\nVinhos com estoque baixo: ${totalEstoqueBaixo}`;
+  let textoMaisAntigo = '–';
 
   if (totalCadastros > 0) {
-    resumo += `\nSafra mais antiga: ${nomeSafraMaisAntiga} (${safraMaisAntiga})`;
-    console.log(`Resumo: ${totalCadastros} cadastro(s), ${totalEstoqueBaixo} vinho(s) com estoque baixo. Safra mais antiga: ${nomeSafraMaisAntiga} (${safraMaisAntiga}).`);
+    textoMaisAntigo = `${nomeSafraMaisAntiga} (${safraMaisAntiga})`;
+    resumo += `\nSafra mais antiga: ${textoMaisAntigo}`;
+    resumo += `\nJovens: ${totalJovens} | Amadurecidos: ${totalAmadurecidos} | Antigos: ${totalAntigos}`;
+    console.log(`Resumo: ${totalCadastros} cadastro(s), ${totalEstoque} unidade(s), ${totalEstoqueBaixo} com estoque baixo. Safra mais antiga: ${textoMaisAntigo}.`);
   } else {
     resumo += '\nNenhum vinho foi cadastrado.';
   }
+
+  preencherResumo(totalEstoque, textoMaisAntigo, totalJovens, totalAmadurecidos, totalAntigos, totalEstoqueBaixo);
+  document.getElementById('clear-button').disabled = totalCadastros === 0;
 
   alert(resumo);
   atualizarStatus(totalCadastros > 0 ? `Sessao encerrada: ${totalCadastros} vinho(s) cadastrado(s).` : 'Sessao encerrada sem cadastros.');
@@ -218,15 +255,39 @@ function alternarPretoEBranco() {
 
 document.getElementById('start-button').addEventListener('click', iniciarCadastro);
 document.getElementById('theme-button').addEventListener('click', alternarPretoEBranco);
+document.getElementById('clear-button').addEventListener('click', limparLista);
 
-// Troca a foto da garrafa no painel da adega a cada 4 segundos.
+// Carrossel: troca sozinho a cada 4 segundos e tambem pelos botoes.
 let fotoAtual = 1;
+let timerFotos = setInterval(proximaFoto, 4000);
 
-function trocarFoto() {
+function mostrarFoto(numero) {
   document.getElementById('foto' + fotoAtual).classList.remove('ativa');
-  fotoAtual = fotoAtual === 3 ? 1 : fotoAtual + 1;
+  fotoAtual = numero;
   document.getElementById('foto' + fotoAtual).classList.add('ativa');
   document.getElementById('foto-contador').textContent = '0' + fotoAtual + ' / 03';
 }
 
-setInterval(trocarFoto, 4000);
+function proximaFoto() {
+  mostrarFoto(fotoAtual === 3 ? 1 : fotoAtual + 1);
+}
+
+function fotoAnterior() {
+  mostrarFoto(fotoAtual === 1 ? 3 : fotoAtual - 1);
+}
+
+// Quando o usuario clica, o contador de 4 segundos recomeca do zero.
+function reiniciarTimer() {
+  clearInterval(timerFotos);
+  timerFotos = setInterval(proximaFoto, 4000);
+}
+
+document.getElementById('foto-proxima').addEventListener('click', function () {
+  proximaFoto();
+  reiniciarTimer();
+});
+
+document.getElementById('foto-anterior').addEventListener('click', function () {
+  fotoAnterior();
+  reiniciarTimer();
+});

@@ -6,25 +6,32 @@
     <meta name="description" content="Cadastro interativo de vinhos da Vinheria Agnello para o Checkpoint 02 de JavaScript.">
     <title>Vinheria Agnello | Checkpoint 02</title>
     <link rel="stylesheet" href="src/css/style.css">
+    <link rel="icon" href="img/favicon.png">
+    <meta name="theme-color" content="#5a1a2b">
   </head>
   <body>
+    <a class="skip-link" href="#page-title">Pular para o conteúdo</a>
     <header class="topbar">
       <div class="container topbar-inner">
         <a class="wordmark" href="index.html">Vinheria Agnello</a>
         <div class="topbar-actions">
-          <span class="edition">Checkpoint 02 – JavaScript</span>
+          <span class="edition">Checkpoint 02</span>
           <button class="theme-button" id="theme-button" type="button" aria-pressed="false">Preto e branco</button>
         </div>
       </div>
     </header>
 
     <main class="container">
+      <noscript>
+        <p class="status-strip">Ative o JavaScript para usar o cadastro.</p>
+      </noscript>
       <section class="intro" aria-labelledby="page-title">
         <div class="intro-copy">
           <h1 id="page-title">Cadastro de vinhos</h1>
           <p class="description">Registre os rótulos da adega com nome, safra e quantidade em estoque. Os dados são pedidos um a um em caixas de diálogo e aparecem na lista abaixo.</p>
 
           <button class="start-button" id="start-button" type="button">Iniciar cadastro</button>
+          <button class="clear-button" id="clear-button" type="button" disabled>Limpar lista</button>
           <p class="session-note">Você pode cadastrar até 20 rótulos por sessão.</p>
 
           <dl class="legend">
@@ -39,6 +46,9 @@
             <img id="foto1" class="foto-vinho ativa" src="img/1.png" alt="Garrafa de vinho Niágara Suave">
             <img id="foto2" class="foto-vinho" src="img/2.png" alt="Garrafa de vinho Bordô Vinheria Agnello">
             <img id="foto3" class="foto-vinho" src="img/3.png" alt="Garrafa de vinho Agnello Reserve Blanc">
+          <div class="showcase-controls">
+            <button type="button" id="foto-anterior" aria-label="Foto anterior">‹</button>
+            <button type="button" id="foto-proxima" aria-label="Próxima foto">›</button>
           </div>
           <figcaption>
             <span>Alguns rótulos da casa</span>
@@ -57,12 +67,33 @@
           <span class="records-count" id="records-count">0 registros</span>
         </div>
         <textarea id="wine-records" aria-label="Dados dos vinhos cadastrados" readonly placeholder="Os dados cadastrados aparecerão aqui."></textarea>
+      <section class="summary" aria-labelledby="summary-title">
+        <h2 id="summary-title">Resumo da adega</h2>
+        <dl class="summary-grid">
+          <div>
+            <dt>Total em estoque</dt>
+            <dd id="total-estoque">0</dd>
+          </div>
+          <div>
+            <dt>Vinho mais antigo</dt>
+            <dd id="mais-antigo">–</dd>
+          </div>
+          <div>
+            <dt>Jovens / Amadurecidos / Antigos</dt>
+            <dd id="por-categoria">0 / 0 / 0</dd>
+          </div>
+          <div>
+            <dt>Estoque baixo (menos de 5)</dt>
+            <dd id="estoque-baixo">0</dd>
+          </div>
+        </dl>
       </section>
+    
     </main>
 
     <footer>
       <div class="container">Vinheria Agnello – Checkpoint 02 de JavaScript, 2026</div>
     </footer>
-    <script src="src/js/script.js"></script>
+    <script src="src/js/script.js" defer></script>
   </body>
 </html>
